@@ -15,17 +15,19 @@ class CreateMovie extends Component {
   }
   render(){
     return (
-      <form onSubmit={null}>
+      <form onSubmit={this.props.addMovie.bind(null, this.state)}>
         <label>
           Movie:
-          <input type='text' name='title' onChange={this.updateMovie}/>
+          <input type='text' name='title' value={this.state.title} onChange={this.updateMovie}/>
         </label>
         <label>
           description:
-          <input type='text' name='description' onChange={this.updateMovie}/>
+          <input type='text' name='description' value={this.state.description} onChange={this.updateMovie}/>
         </label>
-        <input type='Submit' value="Create Movie"/>
+        <button type='Submit'>Create Movie</button>
       </form>
       )
   }
 }
+
+export default CreateMovie;
