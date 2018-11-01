@@ -61,12 +61,28 @@ class MovieContainer extends Component {
     // headers: {'Content-Type': 'application/json'}
     // becuase after we create it, we want to add it to the movies array
   }
+  deleteMovie = async (id) => {
+
+
+    const deleteMovieResponse = await fetch('http://localhost:9000/api/v1/movies/' + id, {
+      method: 'DELETE'
+    });
+
+    // This is the parsed response from express
+    const deleteMovieParsed = await deleteMovieResponse.json();
+
+    // Now that the db has deleted our item, we need to remove it from state
+    this.setState({movies: this.state.movies.filter((movie) => movie._id !== id )})
+
+    console.log(deleteMovieParsed, ' response from express server')
+      // Then make the delete request, then remove the movie from the state array using filter
+  }
   render(){
     console.log(this.state)
     return (
       <div>
         <CreateMovie addMovie={this.addMovie}/>
-        <MovieList movies={this.state.movies}/>
+        <MovieList movies={this.state.movies} deleteMovie={this.deleteMovie}/>
       </div>
       )
   }

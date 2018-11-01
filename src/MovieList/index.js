@@ -9,7 +9,7 @@ const Movies = (props) => {
         <h5>{movie.title}</h5>
         <small>{movie.description}</small>
         <button>Edit Movie</button>
-        <button>Delete Movie</button>
+        <button onClick={props.deleteMovie.bind(null, movie._id)}>Delete Movie</button>
       </li>
       )
   })
