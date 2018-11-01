@@ -1,25 +1,29 @@
-import React from 'react';
+import React from 'react'
+import { Modal, Form, Button, Label, Header } from 'semantic-ui-react';
 
 
 const EditMovie = (props) => {
-
+  console.log(props)
   return (
-    <div>
-      <h4>Edit Movie</h4>
-      <form onSubmit={props.closeAndEdit}>
-        <label>
-          Edit Moive Title:
-          <br/>
-          <input type='text' name='title' value={props.movieToEdit.title} onChange={props.handleEditChange}/>
-        </label>
-        <label>
-          Edit Movie Description:
-          <br/>
-          <input type='text' name='description' value={props.movieToEdit.description} onChange={props.handleEditChange}/>
-        </label>
-        <button type='submit'>Edit Movie</button>
-      </form>
-    </div>
+    <Modal open={props.open}>
+      <Header>Edit Movie</Header>
+      <Modal.Content>
+        <Form onSubmit={props.closeAndEdit}>
+          <Label>
+            Edit Moive Title:
+          </Label>
+          <Form.Input type='text' name='title' value={props.movieToEdit.title} onChange={props.handleEditChange}/>
+          <Label>
+            Edit Movie Description:
+          </Label>
+          <Form.Input type='text' name='description' value={props.movieToEdit.description} onChange={props.handleEditChange}/>
+
+          <Modal.Actions>
+            <Button color='green' type='submit'>Edit Movie</Button>
+          </Modal.Actions>
+        </Form>
+      </Modal.Content>
+    </Modal>
     )
 }
 

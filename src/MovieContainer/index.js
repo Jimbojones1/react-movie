@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import CreateMovie from '../CreateMovie';
 import MovieList from '../MovieList';
 import EditMovie from '../EditMovie';
+import { Grid } from 'semantic-ui-react';
 
 class MovieContainer extends Component {
   constructor(){
@@ -162,11 +163,18 @@ class MovieContainer extends Component {
   render(){
     console.log(this.state)
     return (
-      <div>
-        <CreateMovie addMovie={this.addMovie}/>
-        <MovieList movies={this.state.movies} deleteMovie={this.deleteMovie} openAndEdit={this.openAndEdit}/>
-        {this.state.showEditModal ? <EditMovie movieToEdit={this.state.movieToEdit} handleEditChange={this.handleEditChange} closeAndEdit={this.closeAndEdit}/> : null}
-      </div>
+      <Grid columns={2} divided textAlign='center' style={{ height: '100%' }} verticalAlign='top' stackable>
+        <Grid.Row>
+          <Grid.Column>
+            <CreateMovie addMovie={this.addMovie}/>
+          </Grid.Column>
+
+          <Grid.Column>
+            <MovieList movies={this.state.movies} deleteMovie={this.deleteMovie} openAndEdit={this.openAndEdit}/>
+          </Grid.Column>
+          <EditMovie open={this.state.showEditModal} movieToEdit={this.state.movieToEdit} handleEditChange={this.handleEditChange} closeAndEdit={this.closeAndEdit}/>
+        </Grid.Row>
+      </Grid>
       )
   }
 }
