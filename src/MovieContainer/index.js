@@ -13,7 +13,8 @@ class MovieContainer extends Component {
         title: '',
         description: '',
         _id: ''
-      }
+      },
+      showEditModal: false
     }
   }
   getMovies = async () => {
@@ -102,11 +103,47 @@ class MovieContainer extends Component {
     //   description: this.state.movieToEdit.description
     // }
   }
-  closeAndEdit = async () => {
+  closeAndEdit = async (e) => {
     // Put request,
-
+    e.preventDefault();
     // then update state
+    try {
 
+      const editResponse = await fetch('http://localhost:9000/api/v1/movies/' + this.state.movieToEdit._id, {
+        method: 'PUT',
+        body: JSON.stringify({
+          title: this.state.movieToEdit.title,
+          description: this.state.movieToEdit.description
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const editResponseParsed = await editResponse.json();
+
+      const newMovieArrayWithEdit = this.state.movies.map((movie) => {
+
+        if(movie._id === editResponseParsed.data._id){
+          movie = editResponseParsed.data
+        }
+
+        return movie
+      });
+
+      this.setState({
+        showEditModal: false,
+        movies: newMovieArrayWithEdit
+      });
+
+      console.log(editResponseParsed, ' parsed edit')
+
+
+
+
+    } catch(err){
+      console.log(err)
+    }
 
     // If you feel up to make the modal (EditMovie Component) and show at the appropiate times
 
@@ -116,6 +153,7 @@ class MovieContainer extends Component {
 
 
     this.setState({
+      showEditModal: true,
       movieToEdit: {
         ...movieFromTheList
       }
@@ -127,7 +165,7 @@ class MovieContainer extends Component {
       <div>
         <CreateMovie addMovie={this.addMovie}/>
         <MovieList movies={this.state.movies} deleteMovie={this.deleteMovie} openAndEdit={this.openAndEdit}/>
-        <EditMovie movieToEdit={this.state.movieToEdit} handleEditChange={this.handleEditChange} closeAndEdit={this.closeAndEdit}/>
+        {this.state.showEditModal ? <EditMovie movieToEdit={this.state.movieToEdit} handleEditChange={this.handleEditChange} closeAndEdit={this.closeAndEdit}/> : null}
       </div>
       )
   }
