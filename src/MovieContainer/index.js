@@ -102,13 +102,32 @@ class MovieContainer extends Component {
     //   description: this.state.movieToEdit.description
     // }
   }
+  closeAndEdit = async () => {
+    // Put request,
+
+    // then update state
+
+
+    // If you feel up to make the modal (EditMovie Component) and show at the appropiate times
+
+  }
+  openAndEdit = (movieFromTheList) => {
+    console.log(movieFromTheList, ' movieToEdit  ');
+
+
+    this.setState({
+      movieToEdit: {
+        ...movieFromTheList
+      }
+    })
+  }
   render(){
     console.log(this.state)
     return (
       <div>
         <CreateMovie addMovie={this.addMovie}/>
-        <MovieList movies={this.state.movies} deleteMovie={this.deleteMovie}/>
-        <EditMovie movieToEdit={this.state.movieToEdit} handleEditChange={this.handleEditChange}/>
+        <MovieList movies={this.state.movies} deleteMovie={this.deleteMovie} openAndEdit={this.openAndEdit}/>
+        <EditMovie movieToEdit={this.state.movieToEdit} handleEditChange={this.handleEditChange} closeAndEdit={this.closeAndEdit}/>
       </div>
       )
   }

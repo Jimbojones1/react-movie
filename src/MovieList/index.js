@@ -8,7 +8,7 @@ const Movies = (props) => {
       <li key={movie._id}>
         <h5>{movie.title}</h5>
         <small>{movie.description}</small>
-        <button>Edit Movie</button>
+        <button onClick={props.openAndEdit.bind(null, movie)}>Edit Movie</button>
         <button onClick={props.deleteMovie.bind(null, movie._id)}>Delete Movie</button>
       </li>
       )
