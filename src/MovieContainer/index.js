@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CreateMovie from '../CreateMovie';
-
+import MovieList from '../MovieList';
 class MovieContainer extends Component {
   constructor(){
     super();
@@ -8,6 +8,12 @@ class MovieContainer extends Component {
     this.state = {
       movies: []
     }
+  }
+  getMovies = () => {
+    // Where We will make our fetch call to get all the movies
+  }
+  componentDidMount(){
+    // get ALl the movies, on the intial load of the APP
   }
   addMovie = async (movie, e) => {
     // .bind arguments take presidence over every other argument
@@ -50,6 +56,7 @@ class MovieContainer extends Component {
     return (
       <div>
         <CreateMovie addMovie={this.addMovie}/>
+        <MovieList />
       </div>
       )
   }
