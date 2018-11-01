@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import CreateMovie from '../CreateMovie';
 import MovieList from '../MovieList';
+import EditMovie from '../EditMovie';
 
 class MovieContainer extends Component {
   constructor(){
     super();
 
     this.state = {
-      movies: []
+      movies: [],
+      movieToEdit: {
+        title: '',
+        description: '',
+        _id: ''
+      }
     }
   }
   getMovies = async () => {
@@ -65,11 +71,14 @@ class MovieContainer extends Component {
 
 
     const deleteMovieResponse = await fetch('http://localhost:9000/api/v1/movies/' + id, {
-      method: 'DELETE'
-    });
+                                              method: 'DELETE'
+                                            });
 
     // This is the parsed response from express
     const deleteMovieParsed = await deleteMovieResponse.json();
+
+
+
 
     // Now that the db has deleted our item, we need to remove it from state
     this.setState({movies: this.state.movies.filter((movie) => movie._id !== id )})
@@ -77,12 +86,29 @@ class MovieContainer extends Component {
     console.log(deleteMovieParsed, ' response from express server')
       // Then make the delete request, then remove the movie from the state array using filter
   }
+  handleEditChange = (e) => {
+
+    this.setState({
+      movieToEdit: {
+        ...this.state.movieToEdit,
+        [e.currentTarget.name]: e.currentTarget.value
+      }
+    });
+
+
+    // movieToEdit: {
+    //   _id: this.state.movieToEdit._id,
+    //   title: this.state.movieToEdit.title,
+    //   description: this.state.movieToEdit.description
+    // }
+  }
   render(){
     console.log(this.state)
     return (
       <div>
         <CreateMovie addMovie={this.addMovie}/>
         <MovieList movies={this.state.movies} deleteMovie={this.deleteMovie}/>
+        <EditMovie movieToEdit={this.state.movieToEdit} handleEditChange={this.handleEditChange}/>
       </div>
       )
   }
