@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CreateMovie from '../CreateMovie';
 import MovieList from '../MovieList';
+
 class MovieContainer extends Component {
   constructor(){
     super();
@@ -9,11 +10,20 @@ class MovieContainer extends Component {
       movies: []
     }
   }
-  getMovies = () => {
+  getMovies = async () => {
     // Where We will make our fetch call to get all the movies
+    const movies = await fetch('http://localhost:9000/api/v1/movies');
+    const moviesParsedJSON = await movies.json();
+    return moviesParsedJSON
   }
   componentDidMount(){
     // get ALl the movies, on the intial load of the APP
+    this.getMovies().then((movies) => {
+      this.setState({movies: movies.data})
+    }).catch((err) => {
+      console.log(err);
+    })
+    /// Where you call this.getMovies
   }
   addMovie = async (movie, e) => {
     // .bind arguments take presidence over every other argument
@@ -56,7 +66,7 @@ class MovieContainer extends Component {
     return (
       <div>
         <CreateMovie addMovie={this.addMovie}/>
-        <MovieList />
+        <MovieList movies={this.state.movies}/>
       </div>
       )
   }
