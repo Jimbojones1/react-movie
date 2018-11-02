@@ -44,6 +44,7 @@ class MovieContainer extends Component {
       // createdMovie variable will store the response from the express API
       const createdMovie = await fetch('http://localhost:9000/api/v1/movies', {
         method: 'POST',
+        credentials: 'include',
         body: JSON.stringify(movie),
         headers: {
           'Content-Type': 'application/json'
@@ -159,6 +160,11 @@ class MovieContainer extends Component {
         ...movieFromTheList
       }
     })
+
+    // movieToEdit = {
+    //   title: movieFromTheList.title,
+    //   description: movieFromTheList.description
+    // }
   }
   render(){
     console.log(this.state)

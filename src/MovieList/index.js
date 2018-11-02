@@ -9,7 +9,7 @@ const Movies = (props) => {
         <Card.Content>
           <Card.Header>{movie.title}</Card.Header>
           <Card.Description>{movie.description}</Card.Description>
-          </Card.Content>
+        </Card.Content>
         <Card.Content extra>
           <Button color="green" onClick={props.openAndEdit.bind(null, movie)}>Edit Movie</Button>
           <Button color="red" onClick={props.deleteMovie.bind(null, movie._id)}>Delete Movie</Button>

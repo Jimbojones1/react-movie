@@ -18,11 +18,10 @@ class CreateMovie extends Component {
       <Segment>
         <h4>Create Movie</h4>
         <Form onSubmit={this.props.addMovie.bind(null, this.state)}>
-          <Label htmlFor="name=title">Movie:</Label>
+          <Label>Movie:</Label>
           <Form.Input type='text' name='title' value={this.state.title} onChange={this.updateMovie}/>
           <Label>description:</Label>
           <Form.Input type='text' name='description' value={this.state.description} onChange={this.updateMovie}/>
-
           <Button color="green" type='Submit'>Create Movie</Button>
         </Form>
       </Segment>
